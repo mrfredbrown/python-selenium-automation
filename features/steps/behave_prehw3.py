@@ -56,9 +56,9 @@ def verify_cart(context):
     print(empty)
     expect_result = "Your Amazon Cart is empty"
 
-    if (expect_result == empty):
-        print("test passed")
-    else:
-        print("test failed")
+#    if (expect_result == empty):
+#        print("test passed")
+#    else:
+#        print("test failed")
 
-
+    assert expect_result == empty, f'Expected {expect_result}, but got {empty}'
