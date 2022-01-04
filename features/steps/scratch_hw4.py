@@ -19,4 +19,4 @@ def clicks_bestseller(context):
 def bestseller_page(context):
     element_count = len(context.driver.find_elements(By.CSS_SELECTOR, "div#zg_header li"))
     amount = 5
-    assert element_count == amount, f'Expected {amount}, but got {element_count}git
+    assert element_count == amount, f'Expected {amount}, but got {element_count}'

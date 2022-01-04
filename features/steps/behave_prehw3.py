@@ -17,6 +17,26 @@ def open_amazon(context):
 
     context.driver.get('https://www.amazon.com/')
 
+@when('User types watches and submits')
+def user_types_watches_and_submits(context):
+    search_watch = context.driver.find_element(By.XPATH, '//input[@id="twotabsearchtextbox"]')
+    search_watch.clear()
+    search_watch.send_keys('Watches')
+    search_watch.submit()
+
+
+@when('User adds watch to cart')
+def add_watch_to_cart(context):
+    sleep(8)
+    watch = context.driver.find_element(By.XPATH, '//img[@src="https://m.media-amazon.com/images/I/71--0OOOpsL._AC_UL320_.jpg"]')
+    watch.click()
+    sleep(8)
+    cart = context.driver.find_element(By.XPATH, '//input[@id="add-to-cart-button"]')
+    cart.click()
+    sleep(8)
+    no = context.driver.find_element(By.XPATH, '//input[@aria-labelledby="attachSiNoCoverage-announce"]')
+    no.click()
+
 
 
 @when('User types cancel order and submits')
@@ -62,3 +82,19 @@ def verify_cart(context):
 #        print("test failed")
 
     assert expect_result == empty, f'Expected {expect_result}, but got {empty}'
+
+
+@then('User verifies watch in cart')
+def user_verifies_watch_in_cart(context):
+    assert context.driver.find_element(By.XPATH, '//a[@aria-label="1 item in cart"]')
+    print('there should only be 1 item in cart')
+#     watch_cart = context.driver.find_element(By.TAG_NAME, 'h2').text
+ #   print(empty)
+ #   expect_result = "Your Amazon Cart is empty""
+
+#    if (expect_result == empty):
+#        print("test passed")
+#    else:
+#        print("test failed")
+
+#    assert expect_result == empty, f'Expected {expect_result}, but got {empty}'
