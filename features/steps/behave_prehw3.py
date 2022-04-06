@@ -3,12 +3,22 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from behave import given, when, then
 
+#color_options = (by.css_selector, "#variation_color_name li");
+color_options = (By.CSS_SELECTOR, '#variation_color_name li')
+current_option = (By.CSS_SELECTOR, '#variation_color_name .a-row span')
 
 @given('Open Amazon page')
 def open_amazon(context):
     #context.driver = webdriver.Chrome(executable_path=b"C:\Users\Fred\Automation\python-selenium-automation\chromedriver.exe")
 
     context.driver.get('https://www.amazon.com/gp/help/customer/display.html')
+
+
+@given('Open Amazon product page')
+def open_amazon(context):
+    #context.driver = webdriver.Chrome(executable_path=b"C:\Users\Fred\Automation\python-selenium-automation\chromedriver.exe")
+
+    context.driver.get('https://www.amazon.com/gp/product/B07BJKRR25/')
 
 
 @given('Open Amazon homepage')
@@ -98,3 +108,21 @@ def user_verifies_watch_in_cart(context):
 #        print("test failed")
 
 #    assert expect_result == empty, f'Expected {expect_result}, but got {empty}'
+
+
+@then('Verify user can click through colors')
+def user_can_click_colors(context):
+    #assert context.driver.find_element(By.XPATH, '//a[@aria-label="1 item in cart"]')
+    #print('there should only be 1 item in cart')
+    expected_colors = ['Black', 'Dark Blue Vintage', 'Dark Indigo/Rinsed', 'Dark Wash', 'Indigo Wash',\
+                       'Light Blue Vintage', 'Light Wash', 'Medium Blue, Vintage', 'Medium Wash',\
+                       'Rinsed', 'Vintage Wash', 'Washed Black', 'Bright White', 'Dark Khaki Brown',\
+                       'Light Khaki Brown', 'Olive', 'Sage Green', 'Blue, Over Dye', 'Blue, Dip Dye']
+
+    colors = context.driver.find_elements(*color_options)
+
+    for color in colors:
+        color.click()
+        current = context.driver.find_element(*current_option).text
+        assert current in expected_colors, f"{current} is not in expected color list"
+        #print("color ")
