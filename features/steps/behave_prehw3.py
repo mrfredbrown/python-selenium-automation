@@ -7,6 +7,8 @@ from behave import given, when, then
 color_options = (By.CSS_SELECTOR, '#variation_color_name li')
 current_option = (By.CSS_SELECTOR, '#variation_color_name .a-row span')
 
+
+
 @given('Open Amazon page')
 def open_amazon(context):
     #context.driver = webdriver.Chrome(executable_path=b"C:\Users\Fred\Automation\python-selenium-automation\chromedriver.exe")

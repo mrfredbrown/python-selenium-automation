@@ -1,5 +1,5 @@
 from selenium import webdriver
-
+from selenium.webdriver.support import expected_conditions as EC
 
 def browser_init(context):
     """
@@ -11,7 +11,7 @@ def browser_init(context):
     # context.browser = webdriver.Firefox()
 
     context.driver.maximize_window()
-    context.driver.implicitly_wait(4)
+    context.driver.implicitly_wait(10)
 
 
 def before_scenario(context, scenario):
