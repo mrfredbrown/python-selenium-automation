@@ -12,8 +12,9 @@ current_option = (By.CSS_SELECTOR, '#variation_color_name .a-row span')
 @given('Open Amazon page')
 def open_amazon(context):
     #context.driver = webdriver.Chrome(executable_path=b"C:\Users\Fred\Automation\python-selenium-automation\chromedriver.exe")
-
-    context.driver.get('https://www.amazon.com/gp/help/customer/display.html')
+    ##working below before page object pattern
+   ##context.driver.get('https://www.amazon.com/gp/help/customer/display.html')
+   context.app.main_page.open_main()
 
 
 @given('Open Amazon product page')
@@ -50,6 +51,12 @@ def add_watch_to_cart(context):
     no.click()
 
 
+@when('Click Amazon Orders link')
+def when_click_orders(context):
+    #context.app.main_page.open_main()
+    context.app.header.click_orders()
+
+
 
 @when('User types cancel order and submits')
 def cancel_order(context):
@@ -66,8 +73,12 @@ def cancel_order(context):
 
 @when('User clicks on cart')
 def clicks_on_cart(context):
-    cart = context.driver.find_element(By.XPATH, "//span[@class='nav-cart-icon nav-sprite']")
-    cart.click()
+    #working for hw3 prior to page object model
+    ##cart = context.driver.find_element(By.XPATH, "//span[@class='nav-cart-icon nav-sprite']")
+    ##cart.click()
+    context.app.header.click_cart()
+
+
 
 
 @then('Verify cancel order page')
@@ -82,18 +93,23 @@ def verify_cancel_order_page(context):
         print("test failed")
 
 
-@then('Verify cart')
+@then('Verify empty cart')
 def verify_cart(context):
-    empty = context.driver.find_element(By.TAG_NAME, 'h2').text
-    print(empty)
-    expect_result = "Your Amazon Cart is empty"
+    ##empty = context.driver.find_element(By.TAG_NAME, 'h2').text
+    ##print(empty)
+    #expect_result = "Your Amazon Cart is empty"
 
 #    if (expect_result == empty):
 #        print("test passed")
 #    else:
 #        print("test failed")
+##assert expect_result == empty, f'Expected {expect_result}, but got {empty}'
+    context.app.verify.verify_cart()
 
-    assert expect_result == empty, f'Expected {expect_result}, but got {empty}'
+
+@then('Verify Sign In page is opened')
+def verify_sign_in(context):
+    context.app.verify.verify_sign_in()
 
 
 @then('User verifies watch in cart')
